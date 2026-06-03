@@ -1,0 +1,107 @@
+{
+  "id": "promising-001",
+  "name": "Priya Sharma",
+  "email": "priya.builds@email.com",
+  "skills_claimed": ["Python", "Go", "PostgreSQL", "Redis", "Docker", "REST APIs"],
+  "education": [
+    {
+      "institution": "Government Polytechnic, Lucknow",
+      "degree": "Diploma",
+      "field": "Information Technology",
+      "graduation_year": 2021,
+      "is_tier1": false
+    }
+  ],
+  "work_experience": [
+    {
+      "company": "LocalPay Solutions",
+      "title": "Backend Developer",
+      "duration_months": 18,
+      "description": "Built payment reconciliation API handling 50k txns/day. Designed the retry queue and idempotency layer from scratch. Sole backend engineer for the first 6 months.",
+      "is_faang_or_brand": false
+    }
+  ],
+  "total_experience_months": 18,
+  "github": {
+    "username": "priya-builds",
+    "total_repos": 12,
+    "total_commits_last_year": 847,
+    "contribution_streak_days": 94,
+    "repos": [
+      {
+        "name": "paystream-api",
+        "description": "Production payment processing API with retry queues and idempotency",
+        "stars": 34,
+        "forks": 8,
+        "total_commits": 312,
+        "languages": ["Python", "Go"],
+        "is_production": true,
+        "is_fork": false,
+        "last_commit_date": "2026-05-28"
+      },
+      {
+        "name": "realtime-chat",
+        "description": "WebSocket-based chat with presence, typing indicators, and message persistence",
+        "stars": 89,
+        "forks": 15,
+        "total_commits": 198,
+        "languages": ["Go", "JavaScript"],
+        "is_production": true,
+        "is_fork": false,
+        "last_commit_date": "2026-05-15"
+      },
+      {
+        "name": "contrib-fastapi-cache",
+        "description": "Contributed cache middleware to open source FastAPI project (200+ stars)",
+        "stars": 210,
+        "forks": 45,
+        "total_commits": 23,
+        "languages": ["Python"],
+        "is_production": false,
+        "is_fork": false,
+        "last_commit_date": "2026-04-20"
+      }
+    ]
+  },
+  "assessment": {
+    "submitted": true,
+    "score": 88,
+    "approach_description": "Used an event-sourced architecture instead of standard CRUD. Implemented CQRS pattern for read/write separation. Solution handles 10x the expected load.",
+    "is_unconventional": true,
+    "is_working": true,
+    "time_taken_minutes": 180
+  },
+  "behavioral": {
+    "response_rate": 0.95,
+    "avg_response_time_hours": 4,
+    "communication_clarity": 0.6,
+    "follow_through_rate": 0.9
+  },
+  "side_projects": [
+    {
+      "name": "paystream-api",
+      "description": "Production payment processing API",
+      "url": "https://github.com/priya-builds/paystream-api",
+      "status": "completed",
+      "technologies": ["Python", "Go", "PostgreSQL", "Redis"]
+    },
+    {
+      "name": "realtime-chat",
+      "description": "WebSocket chat system with presence and persistence",
+      "url": "https://github.com/priya-builds/realtime-chat",
+      "status": "completed",
+      "technologies": ["Go", "JavaScript", "WebSocket"]
+    },
+    {
+      "name": "ml-expense-tracker",
+      "description": "Expense tracker with ML-based categorization",
+      "url": "https://github.com/priya-builds/ml-expense-tracker",
+      "status": "in_progress",
+      "technologies": ["Python", "scikit-learn"]
+    }
+  ],
+  "bio": "Self-taught backend developer. Started coding 2 years ago with zero CS background. Built and deployed 3 production systems. Active open source contributor.",
+  "resume_text": "Backend Developer. 18 months at LocalPay Solutions building payment APIs handling 50k txns/day. Self-taught. Diploma from Govt Polytechnic. 12 GitHub repos, 847 commits last year. Python, Go, PostgreSQL, Redis, Docker.",
+  "location": "Lucknow",
+  "willing_to_relocate": true
+}

@@ -1,0 +1,45 @@
+{
+  "id": "polished-001",
+  "name": "Arjun Mehta",
+  "email": "arjun.mehta@email.com",
+  "skills_claimed": ["Python", "Java", "System Design", "AWS", "Microservices", "REST APIs"],
+  "education": [
+    {
+      "institution": "IIT Bombay",
+      "degree": "B.Tech",
+      "field": "Computer Science",
+      "graduation_year": 2020,
+      "is_tier1": true
+    }
+  ],
+  "work_experience": [
+    {
+      "company": "Google",
+      "title": "Software Engineer",
+      "duration_months": 36,
+      "description": "Worked on internal tooling for Google Cloud Platform. Participated in design reviews and code reviews.",
+      "is_faang_or_brand": true
+    },
+    {
+      "company": "Microsoft",
+      "title": "SDE Intern",
+      "duration_months": 3,
+      "description": "Summer internship on Azure DevOps team.",
+      "is_faang_or_brand": true
+    }
+  ],
+  "total_experience_months": 39,
+  "github": null,
+  "assessment": null,
+  "behavioral": {
+    "response_rate": 0.5,
+    "avg_response_time_hours": 72,
+    "communication_clarity": 0.7,
+    "follow_through_rate": 0.4
+  },
+  "side_projects": [],
+  "bio": "Experienced software engineer with a strong academic background from IIT Bombay and professional experience at Google.",
+  "resume_text": "IIT Bombay B.Tech Computer Science 2020. Google Software Engineer 3 years. Microsoft SDE Intern. Skills: Python, Java, System Design, AWS, Microservices.",
+  "location": "Bangalore",
+  "willing_to_relocate": true
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Senior Backend Engineer",
+  "department": "Platform Engineering",
+  "seniority": "senior",
+  "required_skills": [
+    {"name": "Python", "priority": "must_have", "min_years": 2},
+    {"name": "System Design", "priority": "must_have"},
+    {"name": "PostgreSQL", "priority": "must_have"},
+    {"name": "REST APIs", "priority": "must_have"},
+    {"name": "Docker", "priority": "nice_to_have"},
+    {"name": "Go", "priority": "nice_to_have"},
+    {"name": "Redis", "priority": "nice_to_have"}
+  ],
+  "domain": "fintech",
+  "environment": "startup",
+  "min_experience_months": 12,
+  "max_experience_months": 84,
+  "budget_max_ctc": 3500000,
+  "location": "Bangalore",
+  "remote_ok": true,
+  "culture_signals": ["ownership", "fast-paced", "ship-fast", "autonomous"],
+  "raw_jd_text": "We are a fast-growing fintech startup looking for a Senior Backend Engineer who owns systems end-to-end. You will design and build payment infrastructure that handles real money. We value people who ship fast, take ownership, and thrive in ambiguity. Credentials matter less than demonstrated ability to build and deploy production systems. Strong Python and PostgreSQL required. Experience with Go, Redis, and event-driven architectures is a plus.",
+  "key_responsibilities": [
+    "Design and build payment processing backend systems",
+    "Own services end-to-end from design to production",
+    "Improve system reliability and observability",
+    "Mentor junior engineers through code review and pairing"
+  ]
+}
