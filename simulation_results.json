@@ -1,0 +1,8 @@
+{
+  "total_processed": 6400000,
+  "total_fast_rejected": 5183441,
+  "total_survived_l1": 0,
+  "total_stz_promotions": 165245,
+  "direct_seats_filled_count": 100,
+  "average_round_processing_time_ms": 15725.98
+}

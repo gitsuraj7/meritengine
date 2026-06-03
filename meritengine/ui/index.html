@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeritEngine Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <header>
+        <div class="logo">MeritEngine<span class="dot">.</span></div>
+        <button id="btn-reset" class="btn btn-outline">Reset Pipeline</button>
+    </header>
+    
+    <main class="dashboard">
+        <!-- Panel 1: Portal -->
+        <section class="panel glass-panel" id="panel-portal">
+            <h2>1. Portal Simulator</h2>
+            <p class="subtitle">Simulate external ATS systems pushing candidates via Webhook.</p>
+            
+            <div class="card action-card">
+                <h3>Incoming Stream</h3>
+                <p>Send standard fixtures into the routing pipeline.</p>
+                <div class="btn-group">
+                    <button id="btn-send-promising" class="btn btn-primary">Send Promising</button>
+                    <button id="btn-send-polished" class="btn btn-secondary">Send Polished</button>
+                </div>
+            </div>
+
+            <div class="card action-card">
+                <h3>Finalize Batch</h3>
+                <p>Trigger Level 2 Battle on all approved candidates.</p>
+                <button id="btn-finalize" class="btn btn-accent">Execute Battle</button>
+            </div>
+            
+            <div id="portal-logs" class="logs-container"></div>
+        </section>
+
+        <!-- Panel 2: Supervisor -->
+        <section class="panel glass-panel" id="panel-supervisor">
+            <h2>2. Supervisor Gate</h2>
+            <p class="subtitle">Human-in-the-loop: Stream A pending review.</p>
+            
+            <div id="queue-container" class="queue-list">
+                <!-- Queue items injected here -->
+                <div class="empty-state">Queue is empty</div>
+            </div>
+        </section>
+
+        <!-- Panel 3: Leaderboard -->
+        <section class="panel glass-panel" id="panel-leaderboard">
+            <h2>3. Battle Leaderboard</h2>
+            <p class="subtitle">Final hiring outcomes after seat constraints.</p>
+            
+            <div id="leaderboard-container" class="leaderboard-list">
+                <!-- Ranked items injected here -->
+                <div class="empty-state">No results yet</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

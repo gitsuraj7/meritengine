@@ -14,6 +14,9 @@ from meritengine.core.models import (
     GrowthSignal,
 )
 from meritengine.core.pipeline import evaluate_candidate
+from meritengine.core import db
+import httpx
+import threading
 
 StreamType = Literal["stream_a", "stream_b", "stream_c"]
 
@@ -82,25 +85,19 @@ def generate_fail_verdict(candidate: Candidate, role: RoleSpec, reason: str = "R
 class PipelineRouter:
     """
     Orchestrates the multi-tier routing pipeline.
-    Maintains supervisor queue state for Stage 3.
+    Uses SQLite db for persistence instead of in-memory queues.
     """
     
     def __init__(self):
-        self.supervisor_queue: list[tuple[Candidate, RoleSpec]] = []
-        self.approved_stream_a: list[Candidate] = []
-        self.final_verdicts: list[CandidateVerdict] = []
         self.stz_promotions_count = 0
         self.l1_promotions_count = 0
-        # We need to keep track of verdicts for stream c / fatal faults
         
     def reset(self):
-        self.supervisor_queue.clear()
-        self.approved_stream_a.clear()
-        self.final_verdicts.clear()
+        db.reset_db()
         self.stz_promotions_count = 0
         self.l1_promotions_count = 0
 
-    def run_batch(self, candidates: list[Candidate], role: RoleSpec):
+    def run_batch(self, candidates: list[Candidate], role: RoleSpec, webhook_url: str = ""):
         """
         Processes a batch of candidates up to the supervisor gate or final battle.
         For candidates needing supervisor approval (Stream A), they are added to the queue.
@@ -113,22 +110,24 @@ class PipelineRouter:
             stream = triage(candidate)
             
             if stream == "stream_c":
-                self.final_verdicts.append(generate_fail_verdict(candidate, role, "Failed Stage 1: Triage (Missing critical info)"))
+                verdict = generate_fail_verdict(candidate, role, "Failed Stage 1: Triage (Missing critical info)")
+                db.save_final_verdict(candidate.id, verdict)
                 continue
                 
             # STAGE 2: FATAL FAULT CHECK
             if check_fatal_faults(candidate, role):
-                self.final_verdicts.append(generate_fail_verdict(candidate, role, "Failed Stage 2: Fatal Faults (CTC/Notice/Location)"))
+                verdict = generate_fail_verdict(candidate, role, "Failed Stage 2: Fatal Faults (CTC/Notice/Location)")
+                db.save_final_verdict(candidate.id, verdict)
                 continue
                 
             if stream == "stream_a":
                 # STAGE 3: SUPERVISOR GATE (Pending)
-                self.supervisor_queue.append((candidate, role))
+                db.add_to_supervisor_queue(candidate, role, webhook_url)
             else:
                 # STAGE 4: LEVEL 1 SCORING (Stream B)
                 l1_verdict = evaluate_candidate(candidate, role)
                 if l1_verdict.overall >= 70:
-                    self.approved_stream_a.append(candidate)
+                    db.update_candidate_status(candidate.id, "approved_for_battle")
                     self.l1_promotions_count += 1
                 else:
                     # STAGE 5: SPECIAL TEST ZONE
@@ -136,25 +135,44 @@ class PipelineRouter:
                         resp_rate = candidate.behavioral.response_rate
                         avg_time = candidate.behavioral.avg_response_time_hours
                         if resp_rate > 0.9 and avg_time is not None and avg_time < 24:
-                            self.approved_stream_a.append(candidate)
+                            db.update_candidate_status(candidate.id, "approved_for_battle")
                             self.stz_promotions_count += 1
                             continue
                     
-                    self.final_verdicts.append(generate_fail_verdict(candidate, role, "Failed Stage 5: Special Test Zone"))
+                    verdict = generate_fail_verdict(candidate, role, "Failed Stage 5: Special Test Zone")
+                    db.save_final_verdict(candidate.id, verdict)
+
+    def _trigger_webhook(self, url: str, payload: dict):
+        if not url:
+            return
+        def fire():
+            try:
+                # Simple static webhook secret as per plan
+                headers = {"X-MeritEngine-Signature": "hackathon-demo-secret"}
+                httpx.post(url, json=payload, headers=headers, timeout=5.0)
+            except Exception as e:
+                print(f"Webhook failed: {e}")
+        threading.Thread(target=fire).start()
 
     def resolve_supervisor_decision(self, candidate_id: str, approved: bool):
         """
         Process a decision from the supervisor gate for a specific candidate.
         """
-        for i, (cand, role) in enumerate(self.supervisor_queue):
-            if cand.id == candidate_id:
-                self.supervisor_queue.pop(i)
-                if approved:
-                    self.approved_stream_a.append(cand)
-                else:
-                    self.final_verdicts.append(generate_fail_verdict(cand, role, "Failed Stage 3: Supervisor Gate (Rejected by Human)"))
-                return True
-        return False
+        pending = db.get_pending_candidate(candidate_id)
+        if not pending:
+            return False
+        
+        c, r, webhook = pending
+        
+        if approved:
+            db.update_candidate_status(candidate_id, "approved_for_battle")
+            self._trigger_webhook(webhook, {"candidate_id": candidate_id, "status": "approved_for_battle"})
+        else:
+            verdict = generate_fail_verdict(c, r, "Failed Stage 3: Supervisor Gate (Rejected by Human)")
+            db.save_final_verdict(candidate_id, verdict)
+            self._trigger_webhook(webhook, {"candidate_id": candidate_id, "status": "rejected", "verdict": verdict.model_dump()})
+            
+        return True
 
     def finalize_battle(self, role: RoleSpec) -> RankingResult:
         """
@@ -162,14 +180,17 @@ class PipelineRouter:
         Evaluates all approved Stream A candidates, sorts them, and applies seat constraints.
         Returns the final RankingResult including all rejected candidates.
         """
+        approved_stream = db.get_approved_for_battle()
+        approved_candidates = [t[0] for t in approved_stream]
+        
         # Precompute batch semantics for speed
         try:
             import numpy as np
             from meritengine.core.scoring.job_fit import get_embedding_model
             model = get_embedding_model()
-            if model != "fallback" and model is not None and len(self.approved_stream_a) > 0:
+            if model != "fallback" and model is not None and len(approved_candidates) > 0:
                 candidate_texts = []
-                for c in self.approved_stream_a:
+                for c in approved_candidates:
                     candidate_text = f"{c.bio} {c.resume_text} " + " ".join(
                         exp.description for exp in c.work_experience
                     )
@@ -188,13 +209,13 @@ class PipelineRouter:
                 dots = np.dot(candidate_embeddings, role_embedding)
                 similarities = dots / (norms_candidates * norm_role)
                 
-                for idx, c in enumerate(self.approved_stream_a):
+                for idx, c in enumerate(approved_candidates):
                     c._semantic_fit_score = float(similarities[idx])
         except Exception:
             pass
 
         # Evaluate all battle contenders
-        battle_verdicts = [evaluate_candidate(c, role) for c in self.approved_stream_a]
+        battle_verdicts = [evaluate_candidate(c, role) for c in approved_candidates]
         
         # Sort descending by overall score
         battle_verdicts.sort(key=lambda v: (-v.overall, v.candidate_id))
@@ -214,7 +235,12 @@ class PipelineRouter:
             else:
                 verdict.verdict = "pass"
                 
-        all_verdicts = battle_verdicts + self.final_verdicts
+        # Save battle verdicts to DB
+        db.save_batch_final_verdicts(battle_verdicts)
+                
+        # Fetch all final verdicts from DB to include fast-failed ones
+        all_verdicts = db.get_all_finished_verdicts()
+        
         # Re-sort everyone to have a deterministic output (passed candidates at the bottom)
         all_verdicts.sort(key=lambda v: (-v.overall, v.candidate_id))
         
@@ -223,7 +249,7 @@ class PipelineRouter:
             for i, v in enumerate(all_verdicts, start=1)
         ]
         
-        total_evaluated = len(all_verdicts) + len(self.supervisor_queue)
+        total_evaluated = len(all_verdicts) + len(db.get_supervisor_queue())
         total_passed = sum(1 for v in all_verdicts if v.verdict != "pass")
         
         return RankingResult(
