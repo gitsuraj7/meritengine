@@ -292,3 +292,146 @@ h2 { font-weight: 600; font-size: 1.2rem; margin-bottom: 0.25rem; }
 .ranked-item .ranked-header {
     margin-bottom: 0.75rem;
 }
+
+/* J.A.R.V.I.S. Splash Screen Styles */
+.splash-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #090d16;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.splash-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Arc Reactor Animation */
+.arc-reactor {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 2rem;
+}
+
+.arc-reactor .core {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 30px; height: 30px;
+    margin-top: -15px; margin-left: -15px;
+    background: #00f2fe;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #00f2fe, 0 0 60px #00f2fe;
+    animation: pulseCore 2s infinite alternate;
+}
+
+.arc-reactor .ring {
+    position: absolute;
+    border: 2px dashed rgba(0, 242, 254, 0.4);
+    border-radius: 50%;
+}
+
+.arc-reactor .ring-1 {
+    top: 10px; left: 10px; width: 100px; height: 100px;
+    border-top-color: #00f2fe;
+    border-bottom-color: #00f2fe;
+    animation: rotateCW 4s linear infinite;
+}
+
+.arc-reactor .ring-2 {
+    top: 20px; left: 20px; width: 80px; height: 80px;
+    border-left-color: #00f2fe;
+    border-right-color: #00f2fe;
+    animation: rotateCCW 3s linear infinite;
+}
+
+.arc-reactor .ring-3 {
+    top: 35px; left: 35px; width: 50px; height: 50px;
+    border: 1px dotted #00f2fe;
+    animation: rotateCW 2s linear infinite;
+}
+
+@keyframes rotateCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCCW {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+@keyframes pulseCore {
+    0% { transform: scale(0.9); box-shadow: 0 0 20px #00f2fe; }
+    100% { transform: scale(1.1); box-shadow: 0 0 40px #00f2fe, 0 0 70px #00f2fe; }
+}
+
+.splash-title {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+    animation: glowText 2s ease-in-out infinite alternate;
+}
+
+.splash-title .dot {
+    color: #8b5cf6;
+}
+
+.splash-subtitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #00f2fe;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+.loader-bar {
+    width: 250px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.loader-bar .progress {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #00f2fe, #8b5cf6);
+    animation: loadBar 2s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+}
+
+.status-text {
+    font-size: 0.7rem;
+    font-family: monospace;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    height: 15px;
+}
+
+@keyframes loadBar {
+    0% { width: 0; }
+    50% { width: 60%; }
+    80% { width: 85%; }
+    100% { width: 100%; }
+}
+
+@keyframes glowText {
+    0% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+    100% { text-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
+}
+
+.splash-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+

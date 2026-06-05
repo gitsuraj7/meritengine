@@ -317,3 +317,30 @@ logPortal("UI initialized and ready.", "success");
 refreshQueue();
 setInterval(refreshQueue, 2000); // Auto-refresh queue for demo effect
 
+// J.A.R.V.I.S. Splash Screen Animation Timeline
+document.addEventListener("DOMContentLoaded", () => {
+    const splash = document.getElementById("splash-screen");
+    const status = document.getElementById("splash-status");
+
+    if (splash) {
+        const statuses = [
+            { time: 400, text: "INITIALIZING QUANTUM EMBEDDING RETRIEVER..." },
+            { time: 800, text: "LOADING 50-AGENT COMMITTEE RULES..." },
+            { time: 1300, text: "SCANNING ATS WEBHOOK RECONCILIATIONS..." },
+            { time: 1700, text: "ESTABLISHING EMPATHETIC COGNITIVE SYNERGY..." },
+            { time: 2100, text: "BOOT COMPLETED. SYSTEM ACCESS GRANTED." }
+        ];
+
+        statuses.forEach(s => {
+            setTimeout(() => {
+                if (status) status.textContent = s.text;
+            }, s.time);
+        });
+
+        setTimeout(() => {
+            splash.classList.add("fade-out");
+        }, 2500);
+    }
+});
+
+
