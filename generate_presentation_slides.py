@@ -18,6 +18,10 @@ class SlideCanvas(canvas.Canvas):
         super().__init__(*args, **kwargs)
         self.pages = []
 
+    def _startPage(self):
+        super()._startPage()
+        self.draw_background()
+
     def showPage(self):
         self.pages.append(dict(self.__dict__))
         self._startPage()
@@ -26,11 +30,11 @@ class SlideCanvas(canvas.Canvas):
         page_count = len(self.pages)
         for page in self.pages:
             self.__dict__.update(page)
-            self.draw_slide_decorations(page_count)
+            self.draw_page_number(page_count)
             super().showPage()
         super().save()
 
-    def draw_slide_decorations(self, page_count):
+    def draw_background(self):
         # We are in landscape mode: 792 x 612
         width, height = 792, 612
         
@@ -50,12 +54,15 @@ class SlideCanvas(canvas.Canvas):
         self.rect(0, 0, width, 30, fill=True, stroke=False)
         self.line(0, 30, width, 30)
         
-        # 4. Draw footer text
+        # 4. Draw footer static text
         self.setFont("Helvetica-Bold", 8)
         self.setFillColor(colors.HexColor("#8a8a8a"))
         self.drawString(30, 11, "REDROB | H2S  INDIA.RUNS  HACKATHON CHALLENGE")
-        
+
+    def draw_page_number(self, page_count):
+        width, height = 792, 612
         self.setFont("Helvetica", 8)
+        self.setFillColor(colors.HexColor("#8a8a8a"))
         self.drawRightString(width - 30, 11, f"Slide {self._pageNumber} of {page_count}  |  Team MeritEngine")
 
 def build_presentation():
