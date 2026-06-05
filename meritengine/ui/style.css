@@ -339,145 +339,146 @@ h2 { font-weight: 600; font-size: 1.2rem; margin-bottom: 0.25rem; color: #f1f5f9
     margin-bottom: 0.75rem;
 }
 
-/* J.A.R.V.I.S. Splash Screen Styles */
+/* Modern Startup Matching Loader Styles */
+/* Modern Startup Matching Loader Styles */
 .splash-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: #090d16;
+    background: #07080b;
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.5s ease, visibility 0.5s;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
 }
 
 .splash-container {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Arc Reactor Animation */
-.arc-reactor {
+.matching-network {
     position: relative;
-    width: 120px;
-    height: 120px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.arc-reactor .core {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 30px; height: 30px;
-    margin-top: -15px; margin-left: -15px;
-    background: #00f2fe;
+.network-svg {
+    filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.05));
+    animation: floatingMap 6s ease-in-out infinite;
+}
+
+/* Float Animation for the entire map */
+@keyframes floatingMap {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Pulsing Node Animations */
+.candidate-group {
+    animation: nodePulseLeft 3s ease-in-out infinite alternate;
+    transform-origin: 50px 75px;
+}
+
+.job-group {
+    animation: nodePulseRight 3s ease-in-out infinite alternate;
+    transform-origin: 230px 75px;
+}
+
+@keyframes nodePulseLeft {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(0, 242, 254, 0.4)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.8)); }
+}
+
+@keyframes nodePulseRight {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(0, 230, 118, 0.4)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(0, 230, 118, 0.8)); }
+}
+
+/* Glowing Flow Animation */
+.alignment-flow {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawLine 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes drawLine {
+    0% { stroke-dashoffset: 400; opacity: 0.3; }
+    50% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: -400; opacity: 0.3; }
+}
+
+/* Orbiting stars logic */
+.orbiting-star-1 { animation: blinkStar 2.5s ease-in-out infinite; }
+.orbiting-star-2 { animation: blinkStar 3s ease-in-out infinite 0.5s; }
+.orbiting-star-3 { animation: blinkStar 2.8s ease-in-out infinite 1s; }
+.orbiting-star-4 { animation: blinkStar 3.2s ease-in-out infinite 1.5s; }
+
+@keyframes blinkStar {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Startup Match Pill Badge */
+.matching-status-badge {
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+}
+
+.pulse-indicator {
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    box-shadow: 0 0 30px #00f2fe, 0 0 60px #00f2fe;
-    animation: pulseCore 2s infinite alternate;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: indicatorPulse 1.5s ease-in-out infinite;
 }
 
-.arc-reactor .ring {
-    position: absolute;
-    border: 2px dashed rgba(0, 242, 254, 0.4);
-    border-radius: 50%;
-}
-
-.arc-reactor .ring-1 {
-    top: 10px; left: 10px; width: 100px; height: 100px;
-    border-top-color: #00f2fe;
-    border-bottom-color: #00f2fe;
-    animation: rotateCW 4s linear infinite;
-}
-
-.arc-reactor .ring-2 {
-    top: 20px; left: 20px; width: 80px; height: 80px;
-    border-left-color: #00f2fe;
-    border-right-color: #00f2fe;
-    animation: rotateCCW 3s linear infinite;
-}
-
-.arc-reactor .ring-3 {
-    top: 35px; left: 35px; width: 50px; height: 50px;
-    border: 1px dotted #00f2fe;
-    animation: rotateCW 2s linear infinite;
-}
-
-@keyframes rotateCW {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes rotateCCW {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
-}
-
-@keyframes pulseCore {
-    0% { transform: scale(0.9); box-shadow: 0 0 20px #00f2fe; }
-    100% { transform: scale(1.1); box-shadow: 0 0 40px #00f2fe, 0 0 70px #00f2fe; }
+@keyframes indicatorPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.4); opacity: 1; }
 }
 
 .splash-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    letter-spacing: 4px;
-    color: #f8fafc;
+    letter-spacing: -1px;
+    color: #f1f5f9;
     margin-bottom: 0.5rem;
-    animation: glowText 2s ease-in-out infinite alternate;
 }
 
 .splash-title .dot {
-    color: #8b5cf6;
+    color: #00f2fe;
 }
 
 .splash-subtitle {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: #00f2fe;
-    margin-bottom: 2rem;
-    opacity: 0.8;
-}
-
-.loader-bar {
-    width: 250px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.loader-bar .progress {
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, #00f2fe, #8b5cf6);
-    animation: loadBar 2s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
-}
-
-.status-text {
-    font-size: 0.7rem;
-    font-family: monospace;
-    color: #94a3b8;
-    letter-spacing: 1px;
-    height: 15px;
-}
-
-@keyframes loadBar {
-    0% { width: 0; }
-    50% { width: 60%; }
-    80% { width: 85%; }
-    100% { width: 100%; }
-}
-
-@keyframes glowText {
-    0% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
-    100% { text-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: #64748b;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    height: 20px;
+    transition: opacity 0.25s ease;
 }
 
 .splash-overlay.fade-out {
     opacity: 0;
     visibility: hidden;
 }
+
 

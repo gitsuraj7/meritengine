@@ -317,29 +317,31 @@ logPortal("UI initialized and ready.", "success");
 refreshQueue();
 setInterval(refreshQueue, 2000); // Auto-refresh queue for demo effect
 
-// J.A.R.V.I.S. Splash Screen Animation Timeline
+// Modern Startup Splash Screen Animation Timeline
 document.addEventListener("DOMContentLoaded", () => {
     const splash = document.getElementById("splash-screen");
     const status = document.getElementById("splash-status");
+    const stage = document.getElementById("matching-stage");
 
     if (splash) {
-        const statuses = [
-            { time: 400, text: "INITIALIZING QUANTUM EMBEDDING RETRIEVER..." },
-            { time: 800, text: "LOADING 50-AGENT COMMITTEE RULES..." },
-            { time: 1300, text: "SCANNING ATS WEBHOOK RECONCILIATIONS..." },
-            { time: 1700, text: "ESTABLISHING EMPATHETIC COGNITIVE SYNERGY..." },
-            { time: 2100, text: "BOOT COMPLETED. SYSTEM ACCESS GRANTED." }
+        const timelines = [
+            { time: 400, statusText: "mapping resume vector space...", stageText: "initializing embeddings" },
+            { time: 900, statusText: "calculating semantic distance...", stageText: "evaluating skills match" },
+            { time: 1400, statusText: "calibrating experience trajectory...", stageText: "analyzing hunger metrics" },
+            { time: 1900, statusText: "synergy scoring completed...", stageText: "advocacy consensus" },
+            { time: 2300, statusText: "perfect candidate alignment achieved.", stageText: "alignment locked" }
         ];
 
-        statuses.forEach(s => {
+        timelines.forEach(item => {
             setTimeout(() => {
-                if (status) status.textContent = s.text;
-            }, s.time);
+                if (status) status.textContent = item.statusText;
+                if (stage) stage.textContent = item.stageText;
+            }, item.time);
         });
 
         setTimeout(() => {
             splash.classList.add("fade-out");
-        }, 2500);
+        }, 2800);
     }
 });
 
