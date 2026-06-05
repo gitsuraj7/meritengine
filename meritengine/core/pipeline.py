@@ -21,10 +21,14 @@ from meritengine.core.scoring.reliability import evaluate_reliability
 from meritengine.core.scoring.skill import evaluate_skill
 
 
+from meritengine.core.scoring.committee import CommitteeEvaluator
+
+
 def evaluate_candidate(candidate: Candidate, role: RoleSpec) -> CandidateVerdict:
     """
     Evaluates a single candidate against a role specification by routing
     to all 5 dimension scorers and combining them via aggregate_scores.
+    Then enriches and humanizes the score using the 50-agent committee.
     """
     skill = evaluate_skill(candidate, role)
     hunger = evaluate_hunger(candidate, role)
@@ -40,7 +44,39 @@ def evaluate_candidate(candidate: Candidate, role: RoleSpec) -> CandidateVerdict
         reliability=reliability,
     )
 
-    return aggregate_scores(candidate, role, dimensions)
+    verdict = aggregate_scores(candidate, role, dimensions)
+
+    # Empathy-First 50-agent Committee Scoring
+    committee = CommitteeEvaluator()
+    committee_result = committee.evaluate(candidate, role)
+
+    # Soft humanized boost representing committee advocacy
+    boost_val = committee_result["score_boost"]
+    advocacy_boost = min(15, int(boost_val / 10))
+    verdict.overall = min(100, verdict.overall + advocacy_boost)
+
+    # Re-map verdict category based on boosted score
+    if verdict.overall >= 85:
+        verdict.verdict = "strong_hire"
+    elif verdict.overall >= 70:
+        verdict.verdict = "hire"
+    elif verdict.overall >= 55:
+        verdict.verdict = "lean_hire"
+    elif verdict.overall >= 40:
+        verdict.verdict = "hold"
+    else:
+        verdict.verdict = "pass"
+
+    # Construct the humanized advocacy narrative
+    advocacy_bullets = "\n".join(f"- {note}" for note in committee_result["advocacy_notes"][:6])
+    verdict.human_review_notes = (
+        f"=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE ===\n"
+        f"Our 50-agent committee evaluated this builder and noted the following human signals:\n"
+        f"{advocacy_bullets}\n\n"
+        f"Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+    )
+
+    return verdict
 
 
 def rank_candidates(candidates: list[Candidate], role: RoleSpec) -> RankingResult:

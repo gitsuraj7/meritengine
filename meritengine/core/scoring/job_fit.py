@@ -6,6 +6,7 @@ Evaluates candidate fit against the RoleSpec utilizing semantic text similarity
 """
 
 import re
+import math
 import numpy as np
 from meritengine.core.models import Candidate, DimensionScore, RoleSpec
 
@@ -16,6 +17,10 @@ _model = None
 def get_embedding_model():
     global _model
     if _model is None:
+        import os
+        if os.environ.get("MERITENGINE_OFFLINE") == "1":
+            _model = "fallback"
+            return _model
         try:
             from sentence_transformers import SentenceTransformer
             # Use the tiny, highly efficient 22MB model

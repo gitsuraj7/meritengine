@@ -1,1 +1,8 @@
 meritengine/data/
+meritengine/.env
+challenge_extracted/
+*.zip
+__pycache__/
+*.pyc
+.planning/
+*.db

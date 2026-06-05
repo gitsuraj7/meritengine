@@ -1,0 +1,263 @@
+[
+  {
+    "rank": 1,
+    "candidate_id": "promising-001",
+    "name": "Priya Sharma",
+    "overall_score": 100,
+    "verdict": "strong_hire",
+    "skills_claimed": [
+      "Python",
+      "Go",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "REST APIs"
+    ],
+    "experience_months": 18,
+    "location": "Lucknow",
+    "expected_ctc_lakhs": 28.0,
+    "notice_period_days": 15,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Resume Warmth Agent: Bio shows a genuine human voice and professional pride. - Writing Clarity Agent: Candidate structures thoughts clearly and articulates achievements well. - Technical Vocabulary Agent: Uses accurate engineering terminology corresponding to claimed skill sets. - Authenticity Scout: Contact info is verified and communication channel is authentic. - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 847 commits. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 2,
+    "candidate_id": "cand-0102",
+    "name": "Promising Candidate 102",
+    "overall_score": 88,
+    "verdict": "strong_hire",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 15,
+    "location": "Mumbai",
+    "expected_ctc_lakhs": 28.0,
+    "notice_period_days": 60,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 884 commits. - Code Quality Critic: Public repositories show clean structuring and production-grade habits. - Documentation Advocate: Prioritizes developer onboarding with clear documentation. - Project Completeness Agent: Finished side projects indicate strong execution capabilities and follow-through. - Tech Stack Adaptability Agent: Polyglot tendencies found: comfortable in multiple environments (Go, Python). Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 3,
+    "candidate_id": "cand-0112",
+    "name": "Promising Candidate 112",
+    "overall_score": 88,
+    "verdict": "strong_hire",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 23,
+    "location": "Lucknow",
+    "expected_ctc_lakhs": 32.0,
+    "notice_period_days": 60,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 821 commits. - Code Quality Critic: Public repositories show clean structuring and production-grade habits. - Documentation Advocate: Prioritizes developer onboarding with clear documentation. - Project Completeness Agent: Finished side projects indicate strong execution capabilities and follow-through. - Tech Stack Adaptability Agent: Polyglot tendencies found: comfortable in multiple environments (Go, Python). Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 4,
+    "candidate_id": "cand-0101",
+    "name": "Promising Candidate 101",
+    "overall_score": 87,
+    "verdict": "strong_hire",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 19,
+    "location": "Delhi",
+    "expected_ctc_lakhs": 24.0,
+    "notice_period_days": 15,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 564 commits. - Code Quality Critic: Public repositories show clean structuring and production-grade habits. - Documentation Advocate: Prioritizes developer onboarding with clear documentation. - Project Completeness Agent: Finished side projects indicate strong execution capabilities and follow-through. - Tech Stack Adaptability Agent: Polyglot tendencies found: comfortable in multiple environments (Go, Python). Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 5,
+    "candidate_id": "cand-0106",
+    "name": "Promising Candidate 106",
+    "overall_score": 85,
+    "verdict": "strong_hire",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 19,
+    "location": "Lucknow",
+    "expected_ctc_lakhs": 24.0,
+    "notice_period_days": 15,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 566 commits. - Code Quality Critic: Public repositories show clean structuring and production-grade habits. - Documentation Advocate: Prioritizes developer onboarding with clear documentation. - Project Completeness Agent: Finished side projects indicate strong execution capabilities and follow-through. - Tech Stack Adaptability Agent: Polyglot tendencies found: comfortable in multiple environments (Go, Python). Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 6,
+    "candidate_id": "cand-0105",
+    "name": "Promising Candidate 105",
+    "overall_score": 84,
+    "verdict": "hire",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 21,
+    "location": "Bangalore",
+    "expected_ctc_lakhs": 28.0,
+    "notice_period_days": 90,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 645 commits. - Code Quality Critic: Public repositories show clean structuring and production-grade habits. - Documentation Advocate: Prioritizes developer onboarding with clear documentation. - Project Completeness Agent: Finished side projects indicate strong execution capabilities and follow-through. - Tech Stack Adaptability Agent: Polyglot tendencies found: comfortable in multiple environments (Go, Python). Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 7,
+    "candidate_id": "cand-0109",
+    "name": "Standard Candidate 109",
+    "overall_score": 40,
+    "verdict": "hold",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 25,
+    "location": "Delhi",
+    "expected_ctc_lakhs": 28.0,
+    "notice_period_days": 60,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 138 commits. - Career Pivot Appraiser: Pivot from different domains indicates high cognitive flexibility and motivation. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Reliability Indexer: High reliability; follows through on tasks and logistical details. - Non-Tier-1 Champion: Championing self-made builders from regional/non-pedigree universities. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 8,
+    "candidate_id": "cand-0110",
+    "name": "Standard Candidate 110",
+    "overall_score": 39,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 21,
+    "location": "Delhi",
+    "expected_ctc_lakhs": 28.0,
+    "notice_period_days": 60,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 117 commits. - Career Pivot Appraiser: Pivot from different domains indicates high cognitive flexibility and motivation. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Non-Tier-1 Champion: Championing self-made builders from regional/non-pedigree universities. - FAANG Dampener Agent: Underserved candidate with no brand name bias backing them. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 9,
+    "candidate_id": "cand-0104",
+    "name": "Standard Candidate 104",
+    "overall_score": 38,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 27,
+    "location": "Bangalore",
+    "expected_ctc_lakhs": 35.0,
+    "notice_period_days": 30,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 160 commits. - Career Pivot Appraiser: Pivot from different domains indicates high cognitive flexibility and motivation. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Message Tone Agent: Communication tone is highly collaborative and constructive. - Reliability Indexer: High reliability; follows through on tasks and logistical details. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 10,
+    "candidate_id": "cand-0113",
+    "name": "Standard Candidate 113",
+    "overall_score": 38,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 34,
+    "location": "Lucknow",
+    "expected_ctc_lakhs": 38.0,
+    "notice_period_days": 30,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Commit Cadence Agent: Demonstrates active coding habit with 172 commits. - Career Pivot Appraiser: Pivot from different domains indicates high cognitive flexibility and motivation. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Message Tone Agent: Communication tone is highly collaborative and constructive. - Reliability Indexer: High reliability; follows through on tasks and logistical details. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 11,
+    "candidate_id": "cand-0107",
+    "name": "Standard Candidate 107",
+    "overall_score": 36,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 25,
+    "location": "Mumbai",
+    "expected_ctc_lakhs": 24.0,
+    "notice_period_days": 30,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Career Pivot Appraiser: Pivot from different domains indicates high cognitive flexibility and motivation. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Message Tone Agent: Communication tone is highly collaborative and constructive. - Non-Tier-1 Champion: Championing self-made builders from regional/non-pedigree universities. - FAANG Dampener Agent: Underserved candidate with no brand name bias backing them. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 12,
+    "candidate_id": "polished-001",
+    "name": "Arjun Mehta",
+    "overall_score": 6,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "Java",
+      "System Design",
+      "AWS",
+      "Microservices",
+      "REST APIs"
+    ],
+    "experience_months": 39,
+    "location": "Bangalore",
+    "expected_ctc_lakhs": 34.0,
+    "notice_period_days": 30,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Resume Warmth Agent: Bio shows a genuine human voice and professional pride. - Writing Clarity Agent: Candidate structures thoughts clearly and articulates achievements well. - Technical Vocabulary Agent: Uses accurate engineering terminology corresponding to claimed skill sets. - Authenticity Scout: Contact info is verified and communication channel is authentic. - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Upskilling Speed Agent: Actively expands toolkit and updates technical capabilities. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 13,
+    "candidate_id": "cand-0103",
+    "name": "Polished Candidate 103",
+    "overall_score": 5,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 42,
+    "location": "Mumbai",
+    "expected_ctc_lakhs": 32.0,
+    "notice_period_days": 90,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Local Context Evaluator: Analyzes candidates against local tech context, preventing geographic bias. - CTC Pragmatist: Expectations fit within target budgets. - Notice Period Negotiator: Notice period aligns with timeline. - Cost-to-Value Estimator: Assesses candidate as a long-term human asset rather than a line-item expense. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 14,
+    "candidate_id": "cand-0108",
+    "name": "Polished Candidate 108",
+    "overall_score": 5,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 39,
+    "location": "Bangalore",
+    "expected_ctc_lakhs": 38.0,
+    "notice_period_days": 90,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Reliability Indexer: High reliability; follows through on tasks and logistical details. - Local Context Evaluator: Analyzes candidates against local tech context, preventing geographic bias. - Relocation Advocate: Location match or willing to relocate to support the team. - Notice Period Negotiator: Notice period aligns with timeline. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  },
+  {
+    "rank": 15,
+    "candidate_id": "cand-0111",
+    "name": "Polished Candidate 111",
+    "overall_score": 5,
+    "verdict": "pass",
+    "skills_claimed": [
+      "Python",
+      "PostgreSQL",
+      "Go"
+    ],
+    "experience_months": 32,
+    "location": "Lucknow",
+    "expected_ctc_lakhs": 42.0,
+    "notice_period_days": 15,
+    "empathy_review_notes": "=== EMPATHETIC COMMITTEE ADVOCACY NARRATIVE === Our 50-agent committee evaluated this builder and noted the following human signals: - Layout Compassion Agent: Evaluates content over aesthetic packaging; ignores format differences. - Promptness Inspector: Responds promptly to communications, speeding up logistics. - Message Tone Agent: Communication tone is highly collaborative and constructive. - Reliability Indexer: High reliability; follows through on tasks and logistical details. - Local Context Evaluator: Analyzes candidates against local tech context, preventing geographic bias. - Notice Period Negotiator: Notice period aligns with timeline. Ombudsman Verdict: Prioritize their demonstrated builder drive over traditional pedigree."
+  }
+]

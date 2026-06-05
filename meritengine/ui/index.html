@@ -11,7 +11,10 @@
     <div class="glass-bg"></div>
     <header>
         <div class="logo">MeritEngine<span class="dot">.</span></div>
-        <button id="btn-reset" class="btn btn-outline">Reset Pipeline</button>
+        <div class="header-actions">
+            <button id="btn-integrations" class="btn btn-secondary">ATS Integrations</button>
+            <button id="btn-reset" class="btn btn-outline">Reset Pipeline</button>
+        </div>
     </header>
     
     <main class="dashboard">
@@ -60,6 +63,40 @@
             </div>
         </section>
     </main>
+
+    <!-- Integrations Modal -->
+    <div id="modal-integrations" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>ATS Integration Settings</h2>
+                <button id="btn-close-modal" class="btn-close">&times;</button>
+            </div>
+            <p class="subtitle">Connect your Applicant Tracking System to automatically stream candidates into MeritEngine.</p>
+            
+            <div class="card setting-card">
+                <h3>Webhook Endpoint URL</h3>
+                <p>Paste this URL into your ATS Webhook configuration.</p>
+                <div class="input-group">
+                    <input type="text" readonly value="" id="webhook-url">
+                    <button class="btn btn-primary" onclick="copyToClipboard('webhook-url')">Copy</button>
+                </div>
+            </div>
+
+            <div class="card setting-card">
+                <h3>Secret Authentication Token</h3>
+                <p>Use this secret key to secure your webhook payload.</p>
+                <div class="input-group">
+                    <input type="password" value="" id="webhook-secret" placeholder="Enter your secret token">
+                    <button class="btn btn-secondary" onclick="toggleSecret()">Show</button>
+                    <button class="btn btn-primary" onclick="copyToClipboard('webhook-secret')">Copy</button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 1.5rem; text-align: right;">
+                <button class="btn btn-accent" id="btn-done-modal">Done</button>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

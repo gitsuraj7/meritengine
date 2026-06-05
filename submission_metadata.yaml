@@ -1,0 +1,67 @@
+# Redrob Hackathon — Submission Metadata
+#
+# Filled in for Team MeritEngine.
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "team_meritengine"
+
+primary_contact:
+  name: "Suraj Gupta"
+  email: "itszzsurajzz@gmail.com"
+  phone: "+91-9876543210"
+
+team_members:
+  - name: "Suraj Gupta"
+    email: "itszzsurajzz@gmail.com"
+    role: "ML Engineer"
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/gitsuraj7/meritengine"
+
+sandbox_link: "https://huggingface.co/spaces/gitsuraj7/redrob-ranker"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./team_meritengine.csv"
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "Windows PC"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.12.10"
+  os: "Windows 11"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+ai_tools_used:
+  - "Claude"
+  - "Cursor"
+
+ai_usage_summary: |
+  Used Claude for architectural discussions and code review. Used Cursor for refactoring and test harness integration.
+
+# ============================================================================
+# Approach summary
+# ============================================================================
+methodology_summary: |
+  Two-stage ranker with fast heuristic filtering to prune non-tech roles, service company bias, and honeypots, followed by deep Pydantic-based candidate evaluation using a 50-agent Empathy-First Judging Committee.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock ATS Dashboard | Company View</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-gradient: linear-gradient(135deg, #020617 0%, #1e1b4b 100%);
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --danger: #ef4444;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        /* Background animated orbs */
+        .glass-bg {
+            position: fixed;
+            top: -20%; left: -10%; width: 140%; height: 140%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.2), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15), transparent 40%);
+            filter: blur(60px);
+            z-index: -1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.3) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .btn:active { transform: translateY(2px); }
+        .btn-primary { background: linear-gradient(to bottom, #818cf8, #6366f1); color: white; border: 1px solid #4f46e5; }
+        .btn-danger { background: linear-gradient(to bottom, rgba(239,68,68,0.2), rgba(220,38,38,0.2)); color: #fca5a5; border: 1px solid #dc2626; backdrop-filter: blur(5px); }
+        .btn-danger:hover { background: rgba(239,68,68,0.3); }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        th {
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        tbody tr {
+            transition: background 0.2s;
+        }
+        tbody tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .status-badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-approved_for_battle { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .status-rejected { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        
+        pre {
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem;
+            border-radius: 6px;
+            color: #a78bfa;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Mock ATS Dashboard</h1>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-danger" onclick="resetATS()">Purge Database</button>
+                <button class="btn btn-primary" onclick="fetchCandidates()">Sync Now</button>
+            </div>
+        </div>
+        
+        <p class="subtitle">Live Webhook Feed from MeritEngine. Showing candidates that have reached a terminal state (Approved or Rejected).</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate ID</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                    <th>Payload Snippet</th>
+                </tr>
+            </thead>
+            <tbody id="candidates-body">
+                <tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">Listening for webhooks...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        async function fetchCandidates() {
+            try {
+                const res = await fetch('/api/candidates');
+                const data = await res.json();
+                renderTable(data.candidates);
+            } catch (e) {
+                console.error("Failed to fetch", e);
+            }
+        }
+
+        async function resetATS() {
+            await fetch('/api/reset', { method: 'POST' });
+            fetchCandidates();
+        }
+
+        function renderTable(candidates) {
+            const tbody = document.getElementById('candidates-body');
+            if (candidates.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">Listening for webhooks...</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            candidates.reverse().forEach(c => {
+                const tr = document.createElement('tr');
+                const statusStr = c.status ? c.status.replace(/_/g, ' ') : "unknown";
+                tr.innerHTML = `
+                    <td><strong style="color: #e2e8f0;">${c.candidate_id || "Unknown"}</strong></td>
+                    <td><span class="status-badge status-${c.status}">${statusStr}</span></td>
+                    <td style="color: var(--text-muted); font-size: 0.9em;">${new Date().toLocaleTimeString()}</td>
+                    <td><pre style="margin:0; font-size:0.8em; max-height:40px; overflow:hidden;">${JSON.stringify(c).substring(0, 80)}...</pre></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        setInterval(fetchCandidates, 1500);
+        fetchCandidates();
+    </script>
+</body>
+</html>

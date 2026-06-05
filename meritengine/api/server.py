@@ -5,6 +5,9 @@ Exposes candidates evaluation and batch ranking pipelines via HTTP endpoints.
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -14,6 +17,8 @@ from meritengine.core.pipeline import evaluate_candidate, rank_candidates
 from meritengine.core.explain import generate_explanation
 from meritengine.core.router import global_router
 from meritengine.core import db
+from typing import Any, Dict
+from meritengine.ingest.ats_adapter import parse_ats_payload
 
 # Ensure DB is initialized on startup
 db.init_db()
@@ -83,6 +88,53 @@ def rank(request: RankRequest):
 # ---------------------------------------------------------
 # NEW MULTI-TIER ROUTING ENDPOINTS
 # ---------------------------------------------------------
+
+# Retrieve API key on startup
+from fastapi import Depends, status
+from fastapi.security import APIKeyHeader
+import secrets
+
+EXPECTED_API_KEY = os.environ.get("MERITENGINE_API_KEY")
+if not EXPECTED_API_KEY:
+    raise RuntimeError(
+        "MERITENGINE_API_KEY environment variable is not set. "
+        "Please configure it in your environment or a .env file."
+    )
+
+API_KEY_NAME = "X-API-Key"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+
+def get_api_key(api_key: str = Depends(api_key_header)):
+    if not api_key:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing API Key",
+        )
+    if not secrets.compare_digest(api_key, EXPECTED_API_KEY):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized: Invalid API Key",
+        )
+    return api_key
+
+@app.post("/webhook/ats", tags=["Ingest"])
+def receive_ats_webhook(payload: Dict[str, Any], api_key: str = Depends(get_api_key)):
+    """
+    Receives a raw webhook payload from Greenhouse, Lever, etc.
+    Translates it to a Candidate and feeds it to the pipeline.
+    """
+    candidate = parse_ats_payload(payload)
+    
+    # We use a default placeholder RoleSpec. 
+    # In a real system, you'd look up the RoleSpec by a Job ID in the payload.
+    default_role = RoleSpec(
+        title="Generic Role",
+        department="General",
+        min_experience_months=0
+    )
+    
+    global_router.run_batch([candidate], default_role)
+    return {"status": "success", "message": f"Candidate {candidate.name} ingested successfully"}
 
 @app.post("/pipeline/run", tags=["Pipeline"])
 def pipeline_run(request: PipelineRunRequest):
