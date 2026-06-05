@@ -317,32 +317,134 @@ logPortal("UI initialized and ready.", "success");
 refreshQueue();
 setInterval(refreshQueue, 2000); // Auto-refresh queue for demo effect
 
-// Modern Startup Splash Screen Animation Timeline
+// Sleek Startup Splash Screen Particle Canvas & Animation Timeline
 document.addEventListener("DOMContentLoaded", () => {
     const splash = document.getElementById("splash-screen");
-    const status = document.getElementById("splash-status");
-    const stage = document.getElementById("matching-stage");
+    const canvas = document.getElementById('particleCanvas');
+    if (!splash || !canvas) return;
 
-    if (splash) {
-        const timelines = [
-            { time: 400, statusText: "mapping resume vector space...", stageText: "initializing embeddings" },
-            { time: 900, statusText: "calculating semantic distance...", stageText: "evaluating skills match" },
-            { time: 1400, statusText: "calibrating experience trajectory...", stageText: "analyzing hunger metrics" },
-            { time: 1900, statusText: "synergy scoring completed...", stageText: "advocacy consensus" },
-            { time: 2300, statusText: "perfect candidate alignment achieved.", stageText: "alignment locked" }
-        ];
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animFrame;
 
-        timelines.forEach(item => {
-            setTimeout(() => {
-                if (status) status.textContent = item.statusText;
-                if (stage) stage.textContent = item.stageText;
-            }, item.time);
-        });
-
-        setTimeout(() => {
-            splash.classList.add("fade-out");
-        }, 2800);
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = canvas.width / 2 + (Math.random() - 0.5) * 100;
+            this.y = canvas.height / 2 + (Math.random() - 0.5) * 100;
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 1;
+            this.vx = Math.cos(angle) * speed;
+            this.vy = Math.sin(angle) * speed;
+            this.size = Math.random() * 2 + 0.5;
+            this.opacity = Math.random() * 0.6 + 0.2;
+            this.life = 1;
+            this.decay = Math.random() * 0.015 + 0.008;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vx *= 0.99;
+            this.vy *= 0.99;
+            this.life -= this.decay;
+        }
+        draw() {
+            if (this.life <= 0) return;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(240, 240, 240, ${this.opacity * this.life})`;
+            ctx.fill();
+        }
+    }
+
+    function burstParticles() {
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    class AmbientParticle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 1.5 + 0.3;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.15 + 0.05;
+            this.pulse = Math.random() * Math.PI * 2;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.pulse += 0.02;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
+        }
+        draw() {
+            const o = this.opacity + Math.sin(this.pulse) * 0.05;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(240, 240, 240, ${o})`;
+            ctx.fill();
+        }
+    }
+
+    let ambientParticles = [];
+    for (let i = 0; i < 50; i++) {
+        ambientParticles.push(new AmbientParticle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw connections between ambient particles
+        for (let i = 0; i < ambientParticles.length; i++) {
+            for (let j = i + 1; j < ambientParticles.length; j++) {
+                const dx = ambientParticles[i].x - ambientParticles[j].x;
+                const dy = ambientParticles[i].y - ambientParticles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(ambientParticles[i].x, ambientParticles[i].y);
+                    ctx.lineTo(ambientParticles[j].x, ambientParticles[j].y);
+                    ctx.strokeStyle = `rgba(240, 240, 240, ${0.04 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        ambientParticles.forEach(p => { p.update(); p.draw(); });
+        particles.forEach(p => { p.update(); p.draw(); });
+        particles = particles.filter(p => p.life > 0);
+
+        animFrame = requestAnimationFrame(animate);
+    }
+
+    // Trigger burst & start animation loop
+    setTimeout(burstParticles, 200);
+    animate();
+
+    // Dismiss overlay and stop particle loops
+    setTimeout(() => {
+        splash.classList.add("fade-out");
+        setTimeout(() => {
+            splash.style.display = "none";
+            cancelAnimationFrame(animFrame);
+            window.removeEventListener('resize', resizeCanvas);
+        }, 600);
+    }, 2800);
 });
 
 
