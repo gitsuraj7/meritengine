@@ -21,8 +21,8 @@
                         </pattern>
                         <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="#00f2fe" />
-                            <stop offset="50%" stop-color="#7928ca" />
-                            <stop offset="100%" stop-color="#00e676" />
+                            <stop offset="60%" stop-color="#7928ca" />
+                            <stop offset="100%" stop-color="#f8fafc" />
                         </linearGradient>
                         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                             <feGaussianBlur stdDeviation="6" result="blur" />
@@ -47,7 +47,7 @@
                     
                     <!-- Small orbital nodes floating in background -->
                     <circle cx="40" cy="30" r="3" fill="rgba(0, 242, 254, 0.3)" class="orbiting-star-1"/>
-                    <circle cx="50" cy="120" r="3.5" fill="rgba(0, 230, 118, 0.3)" class="orbiting-star-2"/>
+                    <circle cx="50" cy="120" r="3.5" fill="rgba(255, 255, 255, 0.3)" class="orbiting-star-2"/>
                     <circle cx="240" cy="40" r="3" fill="rgba(121, 40, 202, 0.3)" class="orbiting-star-3"/>
                     <circle cx="230" cy="110" r="4" fill="rgba(0, 242, 254, 0.3)" class="orbiting-star-4"/>
                     
@@ -62,11 +62,11 @@
                     
                     <!-- Right Node (Job Profile Hexagon/Target) -->
                     <g class="network-node job-group">
-                        <polygon points="230,58 245,66 245,84 230,92 215,84 215,66" fill="#080a0e" stroke="#00e676" stroke-width="2" filter="url(#glow)"/>
-                        <polygon points="230,64 240,70 240,80 230,86 220,80 220,70" fill="rgba(0, 230, 118, 0.15)" stroke="none"/>
+                        <polygon points="230,58 245,66 245,84 230,92 215,84 215,66" fill="#080a0e" stroke="#f8fafc" stroke-width="2" filter="url(#glow)"/>
+                        <polygon points="230,64 240,70 240,80 230,86 220,80 220,70" fill="rgba(255, 255, 255, 0.15)" stroke="none"/>
                         <!-- Mini Briefcase Icon -->
-                        <rect x="225" y="72" width="10" height="7" rx="1" stroke="#00e676" stroke-width="1.5" fill="none"/>
-                        <path d="M 228 72 V 70 H 232 V 72" stroke="#00e676" stroke-width="1" fill="none"/>
+                        <rect x="225" y="72" width="10" height="7" rx="1" stroke="#f8fafc" stroke-width="1.5" fill="none"/>
+                        <path d="M 228 72 V 70 H 232 V 72" stroke="#f8fafc" stroke-width="1" fill="none"/>
                     </g>
                     
                     <!-- Glowing Vector Probe (moving candidate particle) -->
@@ -96,22 +96,22 @@
     <main class="dashboard">
         <!-- Panel 1: Portal -->
         <section class="panel glass-panel" id="panel-portal">
-            <h2>1. Portal Simulator</h2>
-            <p class="subtitle">Simulate external ATS systems pushing candidates via Webhook.</p>
+            <h2>1. Candidate Ingestion</h2>
+            <p class="subtitle">Stream candidate profiles via simulated ATS webhook payloads.</p>
             
             <div class="card action-card">
-                <h3>Incoming Stream</h3>
-                <p>Send standard fixtures into the routing pipeline.</p>
+                <h3>Incoming Streams</h3>
+                <p>Simulate inbound profiles to queue for triage.</p>
                 <div class="btn-group">
-                    <button id="btn-send-promising" class="btn btn-primary">Send Promising</button>
-                    <button id="btn-send-polished" class="btn btn-secondary">Send Polished</button>
+                    <button id="btn-send-promising" class="btn btn-primary">Ingest Profile A</button>
+                    <button id="btn-send-polished" class="btn btn-secondary">Ingest Profile B</button>
                 </div>
             </div>
 
             <div class="card action-card">
-                <h3>Finalize Batch</h3>
-                <p>Trigger Level 2 Battle on all approved candidates.</p>
-                <button id="btn-finalize" class="btn btn-accent">Execute Battle</button>
+                <h3>Analyze Queue</h3>
+                <p>Execute multi-agent alignment algorithms on all pending profiles.</p>
+                <button id="btn-finalize" class="btn btn-accent">Evaluate Queue</button>
             </div>
             
             <div id="portal-logs" class="logs-container"></div>
@@ -119,8 +119,8 @@
 
         <!-- Panel 2: Supervisor -->
         <section class="panel glass-panel" id="panel-supervisor">
-            <h2>2. Supervisor Gate</h2>
-            <p class="subtitle">Human-in-the-loop: Stream A pending review.</p>
+            <h2>2. Consensus Pipeline</h2>
+            <p class="subtitle">Human-in-the-loop review of incoming applicants.</p>
             
             <div id="queue-container" class="queue-list">
                 <!-- Queue items injected here -->
@@ -130,8 +130,8 @@
 
         <!-- Panel 3: Leaderboard -->
         <section class="panel glass-panel" id="panel-leaderboard">
-            <h2>3. Battle Leaderboard</h2>
-            <p class="subtitle">Final hiring outcomes after seat constraints.</p>
+            <h2>3. Triage & Match Board</h2>
+            <p class="subtitle">Consensus-driven match ratings and top hiring shortlists.</p>
             
             <div id="leaderboard-container" class="leaderboard-list">
                 <!-- Ranked items injected here -->

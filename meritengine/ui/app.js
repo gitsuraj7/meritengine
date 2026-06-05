@@ -57,7 +57,7 @@ async function finalizeBattle() {
     const role = await fetchFixture("role_backend_senior");
     if (!role) return;
 
-    logPortal("Triggering Level 2 Battle on approved candidates...");
+    logPortal("Initiating multi-agent consensus alignment evaluation...");
     try {
         const res = await fetch(`${API_BASE}/pipeline/finalize_battle`, {
             method: "POST",
@@ -67,15 +67,15 @@ async function finalizeBattle() {
         
         if (!res.ok) {
             const err = await res.json();
-            throw new Error(err.detail.message || err.detail || "Battle Failed");
+            throw new Error(err.detail.message || err.detail || "Evaluation Failed");
         }
         
         const data = await res.json();
-        logPortal(`Battle Complete. Evaluated ${data.total_evaluated} total candidates.`, 'success');
+        logPortal(`Evaluation Complete. Processed ${data.total_evaluated} candidate files.`, 'success');
         renderLeaderboard(data.candidates);
         refreshQueue(); // Clear queue out locally
     } catch (e) {
-        logPortal(`Battle Error: ${e.message}`, 'error');
+        logPortal(`Evaluation Error: ${e.message}`, 'error');
     }
 }
 
