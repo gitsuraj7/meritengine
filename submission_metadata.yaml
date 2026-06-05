@@ -8,13 +8,13 @@
 team_name: "team_meritengine"
 
 primary_contact:
-  name: "Suraj Gupta"
-  email: "itszzsurajzz@gmail.com"
-  phone: "+91-9876543210"
+  name: "Suraj Das"
+  email: "etcporasonaetc@gmil.com"
+  phone: "+91 83360 41207"
 
 team_members:
-  - name: "Suraj Gupta"
-    email: "itszzsurajzz@gmail.com"
+  - name: "Suraj Das"
+    email: "etcporasonaetc@gmil.com"
     role: "ML Engineer"
 
 # ============================================================================

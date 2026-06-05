@@ -147,8 +147,8 @@ def build_presentation():
     
     cover_data = [
         [Paragraph("<b>Team Name:</b>", body_style), Paragraph("team_meritengine", body_style)],
-        [Paragraph("<b>Team Leader:</b>", body_style), Paragraph("Suraj Gupta", body_style)],
-        [Paragraph("<b>Primary Contact:</b>", body_style), Paragraph("itszzsurajzz@gmail.com | +91-9876543210", body_style)],
+        [Paragraph("<b>Team Leader:</b>", body_style), Paragraph("Suraj Das", body_style)],
+        [Paragraph("<b>Primary Contact:</b>", body_style), Paragraph("etcporasonaetc@gmil.com | +91 83360 41207", body_style)],
         [Paragraph("<b>Code Repository:</b>", body_style), Paragraph("<font color='#ffffff'><u>https://github.com/gitsuraj7/meritengine</u></font>", body_style)]
     ]
     cover_table = Table(cover_data, colWidths=[150, 450])
