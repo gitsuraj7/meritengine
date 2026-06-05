@@ -1,0 +1,25 @@
+# Exclude large datasets and backend code from Vercel deployment
+challenge_extracted/
+*.zip
+*.pdf
+*.db
+.planning/
+tests/
+meritengine/data/
+meritengine/core/
+meritengine/api/
+meritengine/ingest/
+meritengine/llm/
+meritengine/mock_ats/
+pyproject.toml
+rank.py
+generate_presentation_slides.py
+generate_ranked_shortlist.py
+run_massive_pdf_simulation.py
+simulate.py
+mass_simulate.py
+demo.py
+*.json
+*.csv
+*.txt
+*.log
