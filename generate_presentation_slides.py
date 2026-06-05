@@ -17,6 +17,7 @@ class SlideCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.pages = []
+        self.draw_background()
 
     def _startPage(self):
         super()._startPage()
