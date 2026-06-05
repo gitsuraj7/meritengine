@@ -34,21 +34,29 @@ class SlideCanvas(canvas.Canvas):
         # We are in landscape mode: 792 x 612
         width, height = 792, 612
         
-        # Draw top accent bar
-        self.setFillColor(colors.HexColor("#6d28d9")) # Purple
+        # 1. Fill background with matte black
+        self.setFillColor(colors.HexColor("#0a0a0a"))
+        self.rect(0, 0, width, height, fill=True, stroke=False)
+        
+        # 2. Draw top accent bar (matte top line with a thin border)
+        self.setFillColor(colors.HexColor("#141414"))
         self.rect(0, height - 10, width, 10, fill=True, stroke=False)
+        self.setStrokeColor(colors.HexColor("#2a2a2a"))
+        self.setLineWidth(1)
+        self.line(0, height - 10, width, height - 10)
         
-        # Draw bottom footer bar
-        self.setFillColor(colors.HexColor("#1e1b4b")) # Dark Indigo
-        self.rect(0, 0, width, 25, fill=True, stroke=False)
+        # 3. Draw bottom footer bar
+        self.setFillColor(colors.HexColor("#141414"))
+        self.rect(0, 0, width, 30, fill=True, stroke=False)
+        self.line(0, 30, width, 30)
         
-        # Draw footer text
+        # 4. Draw footer text
         self.setFont("Helvetica-Bold", 8)
-        self.setFillColor(colors.white)
-        self.drawString(30, 8, "REDROB | H2S  INDIA.RUNS  HACKATHON CHALLENGE")
+        self.setFillColor(colors.HexColor("#8a8a8a"))
+        self.drawString(30, 11, "REDROB | H2S  INDIA.RUNS  HACKATHON CHALLENGE")
         
         self.setFont("Helvetica", 8)
-        self.drawRightString(width - 30, 8, f"Slide {self._pageNumber} of {page_count}  |  Team MeritEngine")
+        self.drawRightString(width - 30, 11, f"Slide {self._pageNumber} of {page_count}  |  Team MeritEngine")
 
 def build_presentation():
     pdf_path = "presentation_slides.pdf"
@@ -63,14 +71,14 @@ def build_presentation():
     
     styles = getSampleStyleSheet()
     
-    # Custom slide text styles
+    # Custom slide text styles in White, Matte Grey, and Silver
     title_style = ParagraphStyle(
         "SlideTitle",
         parent=styles["Heading1"],
         fontName="Helvetica-Bold",
         fontSize=24,
         leading=28,
-        textColor=colors.HexColor("#1e1b4b"),
+        textColor=colors.HexColor("#ffffff"),
         spaceAfter=15,
         keepWithNext=True
     )
@@ -81,7 +89,7 @@ def build_presentation():
         fontName="Helvetica",
         fontSize=12,
         leading=16,
-        textColor=colors.HexColor("#64748b"),
+        textColor=colors.HexColor("#8a8a8a"),
         spaceAfter=25
     )
     
@@ -89,9 +97,9 @@ def build_presentation():
         "SectionTitle",
         parent=styles["Heading2"],
         fontName="Helvetica-Bold",
-        fontSize=14,
-        leading=18,
-        textColor=colors.HexColor("#6d28d9"),
+        fontSize=13,
+        leading=17,
+        textColor=colors.HexColor("#e2e8f0"),
         spaceBefore=10,
         spaceAfter=8,
         keepWithNext=True
@@ -103,7 +111,7 @@ def build_presentation():
         fontName="Helvetica",
         fontSize=10.5,
         leading=14.5,
-        textColor=colors.HexColor("#334155"),
+        textColor=colors.HexColor("#d1d5db"),
         spaceAfter=10
     )
     
@@ -113,7 +121,7 @@ def build_presentation():
         fontName="Helvetica",
         fontSize=10,
         leading=14,
-        textColor=colors.HexColor("#334155"),
+        textColor=colors.HexColor("#d1d5db"),
         leftIndent=20,
         firstLineIndent=-10,
         spaceAfter=6
@@ -124,16 +132,17 @@ def build_presentation():
     # ═══════════════════════════════════════════════════════════════════════════
     # SLIDE 1: COVER SLIDE
     # ═══════════════════════════════════════════════════════════════════════════
-    story.append(Spacer(1, 40))
-    story.append(Paragraph("INDIA.RUNS HACKATHON", ParagraphStyle("CoverH2S", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=12, textColor=colors.HexColor("#6d28d9"), spaceAfter=10)))
-    story.append(Paragraph("MeritEngine.ai — Empathy-First Candidate Discovery & Ranking", title_style))
-    story.append(Paragraph("Building next-generation intelligent screening brains for Redrob AI", subtitle_style))
     story.append(Spacer(1, 30))
+    story.append(Paragraph("redrob", ParagraphStyle("CoverLogo", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=28, textColor=colors.HexColor("#ffffff"), spaceAfter=15)))
+    story.append(Paragraph("IDEA SUBMISSION TEMPLATE", title_style))
+    story.append(Paragraph("MeritEngine.ai — Empathy-First Candidate Discovery & Ranking (Track 01)", subtitle_style))
+    story.append(Spacer(1, 20))
     
     cover_data = [
         [Paragraph("<b>Team Name:</b>", body_style), Paragraph("team_meritengine", body_style)],
         [Paragraph("<b>Team Leader:</b>", body_style), Paragraph("Suraj Gupta", body_style)],
-        [Paragraph("<b>Problem Statement:</b>", body_style), Paragraph("Track 01: Intelligent Candidate Discovery (Senior AI Engineer founding team match)", body_style)]
+        [Paragraph("<b>Primary Contact:</b>", body_style), Paragraph("itszzsurajzz@gmail.com | +91-9876543210", body_style)],
+        [Paragraph("<b>Code Repository:</b>", body_style), Paragraph("<font color='#ffffff'><u>https://github.com/gitsuraj7/meritengine</u></font>", body_style)]
     ]
     cover_table = Table(cover_data, colWidths=[150, 450])
     cover_table.setStyle(TableStyle([
@@ -147,13 +156,13 @@ def build_presentation():
     # SLIDE 2: SOLUTION OVERVIEW
     # ═══════════════════════════════════════════════════════════════════════════
     story.append(Paragraph("01. Solution Overview", title_style))
-    story.append(Paragraph("<b>What is our proposed solution?</b>", section_title_style))
+    story.append(Paragraph("<b>What is your proposed solution?</b>", section_title_style))
     story.append(Paragraph("• A hybrid <b>two-stage candidate evaluation engine</b> that balances sub-second parsing speed and deep semantic ranking.", bullet_style))
     story.append(Paragraph("• <b>Stage 1:</b> Filters 100K profiles line-by-line in under 10 seconds to isolate the top 1,000 candidates based on job spec compatibility and availability.", bullet_style))
     story.append(Paragraph("• <b>Stage 2:</b> Deeply scores the top candidates using a 10-layer, 50-agent Empathy Judging Panel, saving high-potential self-made developers from immediate rejection.", bullet_style))
     story.append(Spacer(1, 10))
     
-    story.append(Paragraph("<b>What differentiates our approach from traditional systems?</b>", section_title_style))
+    story.append(Paragraph("<b>What differentiates your approach from traditional systems?</b>", section_title_style))
     story.append(Paragraph("• Traditional applicant tracking systems rely on static keyword parsing and FAANG/Ivy credentials.", bullet_style))
     story.append(Paragraph("• MeritEngine discounts empty brand credentials, tracks contribution velocities/streaks, and utilizes multi-agent advocacy overlays to highlight non-traditional builders.", bullet_style))
     story.append(PageBreak())
@@ -186,12 +195,16 @@ def build_presentation():
     story.append(Paragraph("• **Honeypot Filter:** Blocks profiles exhibiting expert skills with zero months usage.", bullet_style))
     story.append(Paragraph("• **Empathy Committee:** A 10-layer, 50-agent soft-score overlay panel providing up to +15 overall score points based on grit markers.", bullet_style))
     story.append(Paragraph("• **Tie-Breaking Rule:** Deterministically resolves score ties using `candidate_id` ascending as specified in Section 3.", bullet_style))
+    story.append(Spacer(1, 10))
+    
+    story.append(Paragraph("<b>How are multiple candidate signals combined into a final ranking?</b>", section_title_style))
+    story.append(Paragraph("• **Composite Matrix Matching:** Aggregates skill claimed matching, notice period and salary alignment discounts, and public commit velocities into a unified, normalized score.", bullet_style))
     story.append(PageBreak())
     
     # ═══════════════════════════════════════════════════════════════════════════
-    # SLIDE 5: EXPLAINABILITY & DATA VALIDATION
+    # SLIDE 5: EXPLAINABILITY
     # ═══════════════════════════════════════════════════════════════════════════
-    story.append(Paragraph("04. Explainability & Data Validation", title_style))
+    story.append(Paragraph("04. Explainability", title_style))
     story.append(Paragraph("<b>How are ranking decisions explained?</b>", section_title_style))
     story.append(Paragraph("• **Qualitative Advocacy Note:** The Ombudsman layer compiles specific reasons (e.g. 'Data Scientist with 6.8 YoE, strong OpenSearch, 90% response rate').", bullet_style))
     story.append(Paragraph("• **Reasoning monograms:** Stored in the CSV file for manual recruiter review.", bullet_style))
@@ -209,7 +222,7 @@ def build_presentation():
     # SLIDE 6: END-TO-END WORKFLOW
     # ═══════════════════════════════════════════════════════════════════════════
     story.append(Paragraph("05. End-to-End Workflow", title_style))
-    story.append(Paragraph("<b>Complete flow from raw data input to verified shortlist output:</b>", section_title_style))
+    story.append(Paragraph("<b>Complete flow from raw data input to ranked candidate output:</b>", section_title_style))
     
     flow_steps = [
         [Paragraph("<b>1. Raw Ingestion</b>", body_style), Paragraph("Parse raw candidates.jsonl file line-by-line (sub-second per profile).", body_style)],
@@ -221,10 +234,10 @@ def build_presentation():
     flow_table = Table(flow_steps, colWidths=[160, 500])
     flow_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#2a2a2a")),
         ('TOPPADDING', (0,0), (-1,-1), 6),
         ('BOTTOMPADDING', (0,0), (-1,-1), 6),
-        ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#f8fafc")),
+        ('BACKGROUND', (0,0), (0,-1), colors.HexColor("#141414")),
     ]))
     story.append(flow_table)
     story.append(PageBreak())
@@ -245,9 +258,9 @@ def build_presentation():
     arch_table = Table(arch_data, colWidths=[200, 460])
     arch_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#6d28d9")),
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#141414")),
         ('TEXTCOLOR', (0,0), (-1,0), colors.white),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#2a2a2a")),
         ('TOPPADDING', (0,0), (-1,-1), 8),
         ('BOTTOMPADDING', (0,0), (-1,-1), 8),
     ]))
@@ -284,8 +297,8 @@ def build_presentation():
     tech_table = Table(tech_data, colWidths=[150, 510])
     tech_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
-        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8fafc")]),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#2a2a2a")),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.HexColor("#0f1013"), colors.HexColor("#141414")]),
         ('TOPPADDING', (0,0), (-1,-1), 6),
         ('BOTTOMPADDING', (0,0), (-1,-1), 6),
     ]))
@@ -302,7 +315,7 @@ def build_presentation():
     asset_data = [
         [Paragraph("<b>Submission CSV Shortlist:</b>", body_style), Paragraph("<code>team_meritengine.csv</code> (exactly 100 rows, valid)", body_style)],
         [Paragraph("<b>Methodology Metadata:</b>", body_style), Paragraph("<code>submission_metadata.yaml</code> (filled and tested)", body_style)],
-        [Paragraph("<b>Source Code Repository:</b>", body_style), Paragraph("<font color='#6d28d9'><u>https://github.com/gitsuraj7/meritengine</u></font>", body_style)],
+        [Paragraph("<b>Source Code Repository:</b>", body_style), Paragraph("<font color='#ffffff'><u>https://github.com/gitsuraj7/meritengine</u></font>", body_style)],
         [Paragraph("<b>Execution Command:</b>", body_style), Paragraph("<code>python rank.py --candidates ./candidates.jsonl --out ./team_meritengine.csv</code>", body_style)],
         [Paragraph("<b>PDF Presentation Slides:</b>", body_style), Paragraph("<code>presentation_slides.pdf</code> (this file)", body_style)]
     ]
@@ -317,10 +330,10 @@ def build_presentation():
     # ═══════════════════════════════════════════════════════════════════════════
     # SLIDE 11: THANK YOU
     # ═══════════════════════════════════════════════════════════════════════════
-    story.append(Spacer(1, 100))
-    story.append(Paragraph("<font color='#6d28d9'>INDIA.RUNS HACKATHON</font>", ParagraphStyle("ThankH2S", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=14, leading=18, alignment=1, spaceAfter=15)))
-    story.append(Paragraph("THANK YOU", ParagraphStyle("ThankTitle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=36, leading=42, alignment=1, textColor=colors.HexColor("#1e1b4b"), spaceAfter=15)))
-    story.append(Paragraph("Presented by Team MeritEngine  |  Building with Empathy", ParagraphStyle("ThankSub", parent=styles["Normal"], fontName="Helvetica", fontSize=12, leading=16, alignment=1, textColor=colors.HexColor("#64748b"))))
+    story.append(Spacer(1, 120))
+    story.append(Paragraph("THANK YOU", ParagraphStyle("ThankTitle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=42, leading=48, alignment=1, textColor=colors.white, spaceAfter=20)))
+    story.append(Paragraph("redrob", ParagraphStyle("ThankLogo", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=24, leading=28, alignment=1, textColor=colors.HexColor("#8a8a8a"), spaceAfter=15)))
+    story.append(Paragraph("Presented by Team MeritEngine  |  Building with Empathy", ParagraphStyle("ThankSub", parent=styles["Normal"], fontName="Helvetica", fontSize=12, leading=16, alignment=1, textColor=colors.HexColor("#6a6a6a"))))
     
     doc.build(story, canvasmaker=SlideCanvas)
     print("Presentation slides PDF successfully compiled: presentation_slides.pdf")
