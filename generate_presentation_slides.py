@@ -318,9 +318,9 @@ def build_presentation():
     # SLIDE 11: THANK YOU
     # ═══════════════════════════════════════════════════════════════════════════
     story.append(Spacer(1, 100))
-    story.append(Paragraph("<font color='#6d28d9'>INDIA.RUNS HACKATHON</font>", ParagraphStyle("ThankH2S", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=14, alignment=1, spaceAfter=15)))
-    story.append(Paragraph("THANK YOU", ParagraphStyle("ThankTitle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=36, alignment=1, textColor=colors.HexColor("#1e1b4b"), spaceAfter=15)))
-    story.append(Paragraph("Presented by Team MeritEngine  |  Building with Empathy", ParagraphStyle("ThankSub", parent=styles["Normal"], fontName="Helvetica", fontSize=12, alignment=1, textColor=colors.HexColor("#64748b"))))
+    story.append(Paragraph("<font color='#6d28d9'>INDIA.RUNS HACKATHON</font>", ParagraphStyle("ThankH2S", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=14, leading=18, alignment=1, spaceAfter=15)))
+    story.append(Paragraph("THANK YOU", ParagraphStyle("ThankTitle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=36, leading=42, alignment=1, textColor=colors.HexColor("#1e1b4b"), spaceAfter=15)))
+    story.append(Paragraph("Presented by Team MeritEngine  |  Building with Empathy", ParagraphStyle("ThankSub", parent=styles["Normal"], fontName="Helvetica", fontSize=12, leading=16, alignment=1, textColor=colors.HexColor("#64748b"))))
     
     doc.build(story, canvasmaker=SlideCanvas)
     print("Presentation slides PDF successfully compiled: presentation_slides.pdf")
