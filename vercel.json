@@ -1,6 +1,10 @@
 {
+  "version": 2,
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/meritengine/ui/$1" }
+  "builds": [
+    { "src": "meritengine/ui/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/meritengine/ui/$1" }
   ]
 }
